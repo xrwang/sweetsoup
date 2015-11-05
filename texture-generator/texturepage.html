@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <p>
+      texture.js by riccardoscalco on
+      <a href="https://github.com/riccardoscalco/textures">https://github.com/riccardoscalco/textures</a>
+    </p>
+
+    <p>
+      playing around with svg export from d3 (not finished!) from
+      <a href="https://github.com/agordon/d3export_demo">
+        https://github.com/agordon/d3export_demo</a>
+
+      </p>
+
+
+
+    <div id="example">
+    </div>
+
+    <div class="container">
+      <button class="btn btn-default" id="save_as_svg" value="">
+      Save as SVG</button>
+    </div>
+
+
+    <div id="example2">
+    </div>
+
+    <div id="example3">
+    </div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script src="textures.min.js" charset="utf-8"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+
+
+  <script>
+      var w = 150,
+          h = 150;
+      var svg = d3.select("#example")
+          .append("svg")
+          .attr("width",w)
+          .attr("height", h);
+      var t = textures.lines()
+          .stroke("gray")
+          .thicker();
+      svg.call(t);
+      svg.append("rect")
+          .attr({
+              "x": 20,
+              "y": 20,
+              "width": w,
+              "height": h,
+          })
+          .style({
+              "fill": t.url(),
+              "stroke": "gray",
+              "stroke-width": 0
+          });
+
+    </script>
+
+
+
+
+    <script>
+        var w = 150,
+            h = 150;
+        var svg = d3.select("#example2")
+            .append("svg")
+            .attr("width",w)
+            .attr("height", h);
+        var t = textures.lines()
+            .stroke("blue")
+            .thicker();
+        svg.call(t);
+        svg.append("rect")
+            .attr({
+                "x": 20,
+                "y": 20,
+                "width": w,
+                "height": h,
+            })
+            .style({
+                "fill": t.url(),
+                "stroke": "blue",
+                "stroke-width": 0
+            });
+      </script>
+
+
+
+      <script>
+          var w = 150,
+              h = 150;
+          var svg = d3.select("#example3")
+              .append("svg")
+              .attr("width",w)
+              .attr("height", h);
+          var t = textures.paths()
+              .d("crosses")
+              .lighter()
+              .thicker();
+          svg.call(t);
+          svg.append("rect")
+              .attr({
+                  "x": 20,
+                  "y": 20,
+                  "width": w,
+                  "height": h,
+              })
+              .style({
+                  "fill": t.url(),
+                  "stroke": "gray",
+                  "stroke-width": 0
+              });
+        </script>
+
+
+
+        <script type="text/javascript">
+
+        /*
+           Utility function: populates the <FORM> with the SVG data
+           and the requested output format, and submits the form.
+        */
+        function submit_download_form(output_format)
+        {
+        	// Get the d3js SVG element
+        	var tmp = document.getElementById("ex1");
+        	var svg = tmp.getElementsByTagName("svg")[0];
+        	// Extract the data as SVG text string
+        	var svg_xml = (new XMLSerializer).serializeToString(svg);
+
+        	// Submit the <FORM> to the server.
+        	// The result will be an attachment file to download.
+        	var form = document.getElementById("svgform");
+        	form['output_format'].value = output_format;
+        	form['data'].value = svg_xml ;
+        	form.submit();
+        }
+
+        /*
+        d3js Example code, based on the "Three Little Circles" tutorial:
+        http://mbostock.github.com/d3/tutorial/circle.html
+        */
+        function create_d3js_drawing()
+        {
+        	var data = [32, 57, 112],
+        		dataEnter = data.concat(293),
+        		dataExit = data.slice(0, 2),
+        		w = 360,
+        		h = 180,
+        		x = d3.scale.ordinal().domain([57, 32, 112]).rangePoints([0, w], 1),
+        		y = d3.scale.ordinal().domain(data).rangePoints([0, h], 2);
+
+        	var svg = d3.select("#ex1").append("svg")
+        		.attr("width", w)
+        		.attr("height", h);
+
+        	svg.selectAll(".little")
+        		.data(data)
+        		.enter().append("circle")
+        		.attr("class", "little")
+        		.attr("cx", x)
+        		.attr("cy", y)
+        		.attr("r", 12);
+
+        	d3.select("#randomize").on("click", function() {
+        		svg.selectAll(".little")
+        			.transition()
+        			.duration(750)
+        			.attr("cx", function() { return Math.random() * w; })
+        			.attr("cy", function() { return Math.random() * h; })
+        			.attr("fill", function() { return '#'+Math.floor(Math.random()*16777215).toString(16); });
+        		/* Random Hex Color in Javascript, from: http://paulirish.com/2009/random-hex-color-code-snippets/ */
+
+        		// Show the new SVG code
+        		show_svg_code();
+        		});
+        }
+
+        function show_svg_code()
+        {
+        	// Get the d3js SVG element
+        	var tmp  = document.getElementById("ex1");
+        	var svg = tmp.getElementsByTagName("svg")[0];
+
+        	// Extract the data as SVG text string
+        	var svg_xml = (new XMLSerializer).serializeToString(svg);
+
+        	//Optional: prettify the XML with proper indentations
+        	svg_xml = vkbeautify.xml(svg_xml);
+
+        	// Set the content of the <pre> element with the XML
+        	$("#svg_code").text(svg_xml);
+
+        	//Optional: Use Google-Code-Prettifier to add colors.
+        	prettyPrint();
+        }
+
+        /*
+            One-time initialization
+        */
+        $(document).ready(function() {
+        	create_d3js_drawing();
+
+
+
+        	// Attached actions to the buttons
+        	$("#show_svg_code").click(function() { show_svg_code(); });
+
+        	$("#save_as_svg").click(function() { submit_download_form("svg"); });
+
+        	$("#save_as_pdf").click(function() { submit_download_form("pdf"); });
+
+        	$("#save_as_png").click(function() { submit_download_form("png"); });
+        });
+        </script>
+
+
+
+
+  </body>
+</html>
