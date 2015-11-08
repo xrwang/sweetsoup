@@ -9,7 +9,7 @@
             },
             "1444850923457.5469": {
                 "name": "Water",
-                "collapsed": false
+                "collapsed": true
             },
             "1444850900520.0022": {
                 "name": "Tunnels",
@@ -37,7 +37,7 @@
             },
             "1444850892815.3088": {
                 "name": "Roads",
-                "collapsed": false
+                "collapsed": true
             },
             "1444850928470.7239": {
                 "name": "Buildings",
@@ -49,7 +49,11 @@
             },
             "1444850963394.812": {
                 "name": "Landuses",
-                "collapsed": false
+                "collapsed": true
+            },
+            "1446948256441.7866": {
+                "name": "Contours",
+                "collapsed": true
             },
             "1444850654682.7075": {
                 "name": "Marine labels",
@@ -57,7 +61,7 @@
             },
             "1444850820682.8682": {
                 "name": "Admin boundaries",
-                "collapsed": false
+                "collapsed": true
             },
             "1444850621704.1523": {
                 "name": "Country/State labels",
@@ -65,7 +69,7 @@
             },
             "1444850874198.7793": {
                 "name": "Shields",
-                "collapsed": false
+                "collapsed": true
             },
             "1444850853666.2222": {
                 "name": "Waterway labels",
@@ -73,7 +77,7 @@
             },
             "1444850978189.4492": {
                 "name": "Landcovers",
-                "collapsed": false
+                "collapsed": true
             }
         }
     },
@@ -89,10 +93,6 @@
         "mapbox://floatbeijing.5t8r3vq1": {
             "url": "mapbox://floatbeijing.5t8r3vq1",
             "type": "vector"
-        },
-        "mapbox://mapbox.satellite": {
-            "url": "mapbox://mapbox.satellite",
-            "type": "raster"
         },
         "mapbox://floatbeijing.dbzf1z1m": {
             "url": "mapbox://floatbeijing.dbzf1z1m",
@@ -250,7 +250,7 @@
             "source": "mapbox://mapbox.mapbox-streets-v6",
             "id": "landuse_park",
             "paint": {
-                "fill-color": "rgba(250,250,250,1)"
+                "fill-color": "rgba(253,253,253,1)"
             },
             "source-layer": "landuse"
         },
@@ -2114,7 +2114,7 @@
             "source": "mapbox://mapbox.mapbox-streets-v6",
             "id": "admin-3-4-boundaries",
             "paint": {
-                "line-color": "#b5b5b5",
+                "line-color": "rgba(219,219,219,1)",
                 "line-opacity": {
                     "base": 1,
                     "stops": [
@@ -2147,16 +2147,16 @@
                         [
                             4,
                             [
-                                2,
+                                1,
                                 0
                             ]
                         ],
                         [
                             5,
                             [
-                                2,
-                                2,
-                                6,
+                                1,
+                                1,
+                                4,
                                 2
                             ]
                         ]
@@ -2217,6 +2217,122 @@
             "source-layer": "admin"
         },
         {
+            "layout": {},
+            "nextDropPoint": false,
+            "metadata": {
+                "mapbox:group": "1446948256441.7866"
+            },
+            "filter": [
+                "in",
+                "index",
+                5,
+                10,
+                2,
+                1,
+                -1
+            ],
+            "type": "line",
+            "source": "mapbox://mapbox.mapbox-terrain-v2",
+            "id": "contour",
+            "paint": {
+                "line-color": "rgba(214,214,214,1)",
+                "line-width": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            0,
+                            0.7
+                        ],
+                        [
+                            10,
+                            1
+                        ]
+                    ]
+                },
+                "line-dasharray": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            4,
+                            [
+                                1,
+                                0
+                            ]
+                        ],
+                        [
+                            5,
+                            [
+                                1,
+                                2,
+                                1,
+                                2
+                            ]
+                        ]
+                    ]
+                }
+            },
+            "source-layer": "contour",
+            "interactive": true
+        },
+        {
+            "layout": {
+                "icon-image": "circle-12",
+                "text-field": "{ele}",
+                "symbol-placement": "line",
+                "text-anchor": "bottom",
+                "symbol-spacing": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            10,
+                            200
+                        ],
+                        [
+                            15,
+                            600
+                        ]
+                    ]
+                },
+                "text-size": {
+                    "stops": [
+                        [
+                            5,
+                            4
+                        ],
+                        [
+                            12,
+                            6
+                        ]
+                    ],
+                    "base": 0.9
+                },
+                "text-max-angle": 90
+            },
+            "nextDropPoint": false,
+            "metadata": {
+                "mapbox:group": "1446948256441.7866"
+            },
+            "filter": [
+                "none",
+                [
+                    "in",
+                    "index",
+                    5,
+                    10
+                ]
+            ],
+            "type": "symbol",
+            "source": "mapbox://mapbox.mapbox-terrain-v2",
+            "id": "contour-label",
+            "paint": {
+                "text-color": "rgba(173,173,173,1)",
+                "text-halo-color": "rgba(255,255,255,1)",
+                "text-halo-width": 1
+            },
+            "source-layer": "contour",
+            "interactive": true
+        },
+        {
             "layout": {
                 "visibility": "visible"
             },
@@ -2238,16 +2354,17 @@
                     "stops": [
                         [
                             15.95,
-                            9
+                            18
                         ],
                         [
                             16,
-                            11
+                            22
                         ]
                     ]
                 },
                 "icon-image": "default-4-small",
-                "text-max-angle": 38,
+                "symbol-avoid-edges": true,
+                "text-max-angle": 30,
                 "symbol-spacing": {
                     "base": 1,
                     "stops": [
@@ -2267,6 +2384,7 @@
                 ],
                 "symbol-placement": "line",
                 "visibility": "visible",
+                "text-anchor": "bottom",
                 "text-field": "{ref}",
                 "text-letter-spacing": 0.05
             },
@@ -2345,15 +2463,6 @@
             "interactive": true,
             "minzoom": 12,
             "layout": {
-                "symbol-placement": "line",
-                "text-field": "{name_en}",
-                "text-font": [
-                    "DIN Offc Pro Medium",
-                    "Arial Unicode MS Bold"
-                ],
-                "text-transform": "none",
-                "text-letter-spacing": 0,
-                "text-padding": 0,
                 "text-size": {
                     "base": 1,
                     "stops": [
@@ -2366,7 +2475,21 @@
                             15
                         ]
                     ]
-                }
+                },
+                "text-transform": "none",
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Bold"
+                ],
+                "symbol-placement": "line",
+                "text-padding": 0,
+                "text-offset": [
+                    0,
+                    0
+                ],
+                "text-anchor": "bottom",
+                "text-field": "{name_en}",
+                "text-letter-spacing": 0
             },
             "metadata": {
                 "mapbox:group": "1444850808863.985"
@@ -2421,7 +2544,8 @@
                             16
                         ]
                     ]
-                }
+                },
+                "text-anchor": "bottom"
             },
             "metadata": {
                 "mapbox:group": "1444850808863.985"
@@ -2450,11 +2574,11 @@
                     "stops": [
                         [
                             8,
-                            8
+                            16
                         ],
                         [
                             20,
-                            17
+                            23
                         ]
                     ]
                 },
@@ -4119,21 +4243,11 @@
                 "text-halo-blur": 0.5
             },
             "source-layer": "country_label"
-        },
-        {
-            "type": "raster",
-            "paint": {},
-            "layout": {
-                "visibility": "none"
-            },
-            "id": "mapbox-mapbox-satellite",
-            "source": "mapbox://mapbox.satellite",
-            "interactive": true
         }
     ],
     "created": "2015-11-05T18:17:26.193Z",
     "id": "cigmk2pue0016aaknq6h4daie",
-    "modified": "2015-11-07T18:48:07.439Z",
+    "modified": "2015-11-08T02:04:54.965Z",
     "owner": "floatbeijing",
     "draft": false
 }
